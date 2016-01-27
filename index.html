@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>Validate a NZ Bank Account Number</title>
+</head>
+<body>
+
+ <div class="container">
+    <div class="row">
+        <h1 align="center">Validate a NZ Bank Account Number</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Bank</h4>
+        </div>
+        <div class="col-md-3">
+            <h4>Branch</h4>
+        </div>
+        <div class="col-md-5">
+            <h4>Base number</h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Suffix</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <input class="form-control" type="number" min="0" max="99" id="bank">
+        </div>
+        <div class="col-md-3">
+            <input class="form-control" type="number" min="0" max="9999" id="branch">
+        </div>
+        <div class="col-md-5">
+            <input class="form-control" type="number" min="0" max="99999999" id="base">
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" type="number" min="0" max="9999" id="suffix">
+        </div>
+    </div>
+
+    <div class="row">
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-primary" onclick="validate()">Validate</button>
+        </div>
+        <div class="col-md-10">
+            <div class="alert alert-success" id="output">
+                Seems legit.
+            </div>
+            <!-- for red box: class="bg-danger" -->
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function validate() {
+        var bankNum = document.getElementById("bank").value;
+        document.getElementById("output").innerHTML = "Nope, not OK!";
+        document.getElementById("output").className = "alert alert-danger";
+    }
+
+    function checksum() {
+        // perform checksum algorithm
+        // return valid or invalid
+    }
+
+    function paymentsNZ() {
+        // check bank and brank numbers on Payments NZ list
+        // return branch name and address, or invalid
+    }
+
+</script>
+</body>
+</html>
