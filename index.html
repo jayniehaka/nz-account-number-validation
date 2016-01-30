@@ -5,15 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
     <title>Validate a NZ Bank Account Number</title>
 </head>
@@ -62,25 +57,101 @@
             <button class="btn btn-primary" onclick="validate()">Validate</button>
         </div>
         <div class="col-md-10">
-            <div class="alert alert-success" id="output">
-                Seems legit.
+            <div id="output1">
             </div>
-            <!-- for red box: class="bg-danger" -->
         </div>
     </div>
 
 </div>
 
 <script type="text/javascript">
+    
+
     function validate() {
-        var bankNum = document.getElementById("bank").value;
-        document.getElementById("output").innerHTML = "Nope, not OK!";
-        document.getElementById("output").className = "alert alert-danger";
+        var bankNum = document.getElementById("bank").value,
+        branchNum = document.getElementById("branch").value,
+        baseNum = document.getElementById("base").value,
+        suffixNum = document.getElementById("suffix").value;
+        
+        // pad out with zeroes to make account number correct length
+        var bankStr = padWithZeroes(bankNum, 2),
+        branchStr = padWithZeroes(branchNum, 4),
+        baseStr = padWithZeroes(baseNum, 8),
+        suffixStr = padWithZeroes(suffixNum, 4);
+
+        // put padded numbers back into boxes
+        bankNum = document.getElementById("bank").value = bankStr;
+        branchNum = document.getElementById("branch").value = branchStr;
+        baseNum = document.getElementById("base").value = baseStr;
+        suffixNum = document.getElementById("suffix").value = suffixStr;
+
+        // put together into vector
+        var accNumStr = bankStr + branchStr + baseStr + suffixStr;
+        var accNumArray = accNumStr.split("").map(Number);
+
+        // calculate checksum
+        var checksumResult = checkSum(bankNum, baseNum, accNumArray);
+
+        if (checksumResult == true) {
+            var checkSumMessage = "Checksum is valid",
+            checkSumMsgClass = "alert alert-success";
+        } else {
+            var checkSumMessage = "Checksum is not valid",
+            checkSumMsgClass = "alert alert-danger";
+        }
+
+        document.getElementById("output1").innerHTML = checkSumMessage;
+        document.getElementById("output1").className = checkSumMsgClass;
+
+        //var paymentsNZResult = function paymentsNZ(bankNum, brannchNum);
     }
 
-    function checksum() {
-        // perform checksum algorithm
-        // return valid or invalid
+    function padWithZeroes(n, width) {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join("0") + n;
+    }
+
+    function checkSum(bankNum, baseNum, accNumArray) {
+        if (bankNum == 8) {
+            // algorithm D
+            var checkSumArray = [0,0,0,0,0,0,0,7,6,5,4,3,2,1,0,0,0,0],
+            modulo = 11;
+        } else if (bankNum == 9) {
+            var checkSumArray = [0,0,0,0,0,0,0,0,0,0,5,4,3,2,0,0,0,1],
+            modulo = 11;
+        } else if (bankNum == 25 || bankNum == 33) {
+            // algorithm F
+            var checkSumArray = [0,0,0,0,0,0,0,1,7,3,1,7,3,1,0,0,0,0],
+            modulo = 10;
+        } else if (bankNum == 26 || bankNum == 28 || bankNum == 29) {
+            // algorithm G
+            var checkSumArray = [0,0,0,0,0,0,0,1,3,7,1,3,7,1,0,3,7,1],
+            modulo = 10;
+        } else if (bankNum == 31) {
+            // algorithm X
+            var checkSumArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            modulo = 1;
+        } else if (baseNum < 990000) {
+            // algorithm A
+            var checkSumArray = [0,0,6,3,7,9,0,0,10,5,8,4,2,1,0,0,0,0],
+            modulo = 11;
+        } else {
+            // algorithm B
+            var checkSumArray = [0,0,0,0,0,0,0,0,10,5,8,4,2,1,0,0,0,0],
+            modulo = 11;
+        }
+
+        var sum = 0;
+        for(var i=0; i< accNumArray.length; i++) {
+            sum += accNumArray[i]*checkSumArray[i];
+        }
+
+        if (sum % modulo == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     function paymentsNZ() {
