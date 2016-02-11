@@ -6,8 +6,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+      .alert {
+        padding: 6px 12px;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
+    </style>
+
     <script src="js/bootstrap.min.js"></script>
 
     <title>Validate a NZ Bank Account Number</title>
@@ -20,13 +33,13 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1 col-md-offset-1">
             <h4>Bank</h4>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h4>Branch</h4>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <h4>Base number</h4>
         </div>
         <div class="col-md-2">
@@ -35,29 +48,26 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1 col-md-offset-1">
             <input class="form-control" type="number" min="0" max="99" id="bank">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input class="form-control" type="number" min="0" max="9999" id="branch">
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <input class="form-control" type="number" min="0" max="99999999" id="base">
         </div>
         <div class="col-md-2">
             <input class="form-control" type="number" min="0" max="9999" id="suffix">
         </div>
-    </div>
-
-    <div class="row">
-    </div>
-
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button class="btn btn-primary" onclick="validate()">Validate</button>
         </div>
-        <div class="col-md-10">
-            <div id="output1">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="output1" align="center">
             </div>
         </div>
     </div>
