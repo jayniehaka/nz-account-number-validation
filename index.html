@@ -16,7 +16,7 @@
     <style>
       .alert {
         padding: 6px 12px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         margin-top: 20px;
       }
     </style>
@@ -72,10 +72,16 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="output2" align="center">
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript">
-    
 
     function validate() {
         var bankNum = document.getElementById("bank").value,
@@ -113,7 +119,22 @@
         document.getElementById("output1").innerHTML = checkSumMessage;
         document.getElementById("output1").className = checkSumMsgClass;
 
-        //var paymentsNZResult = function paymentsNZ(bankNum, brannchNum);
+        // check bank and branch number
+        //var paymentsNZResult = function paymentsNZCheck(bankNum, brannchNum);
+
+        var paymentsNZResult = true
+
+        if (paymentsNZResult == true) {
+            var paymentsNZMessage = "Bank and branch is valid",
+            paymentsNZMsgClass = "alert alert-success";
+        } else {
+            var paymentsNZMessage = "Bank and branch does not exist",
+            paymentsNZMsgClass = "alert alert-danger";
+        }
+
+        document.getElementById("output2").innerHTML = paymentsNZMessage;
+        document.getElementById("output2").className = paymentsNZMsgClass;
+
     }
 
     function padWithZeroes(n, width) {
@@ -164,9 +185,12 @@
 
     }
 
-    function paymentsNZ() {
+    function paymentsNZCheck() {
         // check bank and brank numbers on Payments NZ list
-        // return branch name and address, or invalid
+        // http://www.paymentsnz.co.nz/cms_show_download.php?id=222
+        // look up branch number and find bank number. If bank number matches, return branch name and address
+        // if branch exists but bank does not match, return "bank and branch number combination is not valid"
+        // if branch does not exist, return "invalid branch number"
     }
 
 </script>
