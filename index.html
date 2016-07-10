@@ -6,12 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    -->
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
       .alert {
@@ -21,13 +18,12 @@
       }
     </style>
 
-    <script src="js/bootstrap.min.js"></script>
-
     <title>Validate a NZ Bank Account Number</title>
 </head>
 <body>
 
  <div class="container">
+
     <div class="row">
         <h1 align="center">Validate a NZ Bank Account Number</h1>
     </div>
@@ -49,16 +45,16 @@
 
     <div class="row">
         <div class="col-md-1 col-md-offset-1">
-            <input class="form-control" type="number" min="0" max="99" id="bank">
+            <input class="form-control" placeholder="Bank" type="text" maxlength=2 id="bank">
         </div>
         <div class="col-md-2">
-            <input class="form-control" type="number" min="0" max="9999" id="branch">
+            <input class="form-control" placeholder="Branch" type="text" maxlength=4 id="branch">
         </div>
         <div class="col-md-4">
-            <input class="form-control" type="number" min="0" max="99999999" id="base">
+            <input class="form-control" placeholder="Base" type="text" maxlength=8 id="base">
         </div>
         <div class="col-md-2">
-            <input class="form-control" type="number" min="0" max="9999" id="suffix">
+            <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
         </div>
         <div class="col-md-1">
             <button class="btn btn-primary" onclick="validate()">Validate</button>
@@ -82,6 +78,22 @@
 </div>
 
 <script type="text/javascript">
+    
+    // thanks Nicko for this bit
+    $('#bank').on('paste', function (e) {
+      // if you paste in the bank box, grab text from clipboard
+      var clip = e.originalEvent.clipboardData;
+      var textData = clip.getData('text/plain');
+       
+      // split account number
+      var accountParts = textData.trim().split(/[\s\-]+/)
+      
+      $('#bank').val(accountParts[0])
+      $('#branch').val(accountParts[1])
+      $('#base').val(accountParts[2])
+      $('#suffix').val(accountParts[3])
+      
+    })
 
     function validate() {
         var bankNum = document.getElementById("bank").value,
