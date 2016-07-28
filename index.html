@@ -33,8 +33,7 @@
 </head>
 <body>
 
- <div class="container">
-
+<div class="container">
     <div class="row">
         <h1 align="center">Validate a NZ Bank Account Number</h1>
     </div>
@@ -63,7 +62,7 @@
             <input class="form-control" placeholder="Branch" type="text" maxlength=4 id="branch">
         </div>
         <div class="col-md-2">
-            <input class="form-control" placeholder="Base" type="text" maxlength=8 id="base">
+            <input class="form-control" placeholder="Base number" type="text" maxlength=8 id="base">
         </div>
         <div class="col-md-1">
             <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
@@ -114,9 +113,11 @@
     })
 
     function clearAccount() {
-        document.getElementById("output1").innerHTML = "";
+        document.getElementById("text1").innerHTML = "";
+        document.getElementById("icon1").removeAttribute("class");
         document.getElementById("output1").removeAttribute("class");
-        document.getElementById("output2").innerHTML = "";
+        document.getElementById("text2").innerHTML = "";
+        document.getElementById("icon2").removeAttribute("class");
         document.getElementById("output2").removeAttribute("class");
         document.getElementById("accountNumberForm").reset();
     }
