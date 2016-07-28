@@ -11,11 +11,22 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
-      .alert {
-        padding: 6px 12px;
+    .alert {
+        padding: 6px 6px;
         margin-bottom: 0px;
         margin-top: 20px;
-      }
+    }
+
+    .alert .glyphicon{
+        display:table-cell;
+        padding: 0px 12px;
+    }
+
+    .alert div,
+    .alert span{
+        padding-left: 5px;
+        display:table-cell;
+    }
     </style>
 
     <title>Validate a NZ Bank Account Number</title>
@@ -29,48 +40,55 @@
     </div>
 
     <div class="row">
-        <div class="col-md-1 col-md-offset-1">
+        <div class="col-md-1 col-md-offset-2">
             <h4>Bank</h4>
         </div>
         <div class="col-md-2">
             <h4>Branch</h4>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <h4>Base number</h4>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <h4>Suffix</h4>
         </div>
     </div>
 
+<form id="accountNumberForm">
     <div class="row">
-        <div class="col-md-1 col-md-offset-1">
+        <div class="col-md-1 col-md-offset-2">
             <input class="form-control" placeholder="Bank" type="text" maxlength=2 id="bank">
         </div>
         <div class="col-md-2">
             <input class="form-control" placeholder="Branch" type="text" maxlength=4 id="branch">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <input class="form-control" placeholder="Base" type="text" maxlength=8 id="base">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary" onclick="validate()">Validate</button>
+            <button class="btn btn-block" type="button" onclick="check()">Check</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-block" type="button" onclick="clearAccount()">Clear</button>
         </div>
     </div>
+</form>
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div id="output1" align="center">
+        <div class="col-md-4 col-md-offset-4">
+            <div id="output1">
+                <span id="icon1"></span><span id="text1"></span>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div id="output2" align="center">
+        <div class="col-md-4 col-md-offset-4">
+            <div id="output2">
+                <span id="icon2"></span><span id="text2"></span>
             </div>
         </div>
     </div>
@@ -95,7 +113,16 @@
       
     })
 
-    function validate() {
+    function clearAccount() {
+        document.getElementById("output1").innerHTML = "";
+        document.getElementById("output1").removeAttribute("class");
+        document.getElementById("output2").innerHTML = "";
+        document.getElementById("output2").removeAttribute("class");
+        document.getElementById("accountNumberForm").reset();
+    }
+
+    function check() {
+        console.log("Doing the check function");
         var bankNum = document.getElementById("bank").value,
         branchNum = document.getElementById("branch").value,
         baseNum = document.getElementById("base").value,
@@ -123,13 +150,16 @@
         if (checksumResult == true) {
             var checkSumMessage = "Checksum is valid",
             checkSumMsgClass = "alert alert-success";
+            checkSumIconClass = "glyphicon glyphicon-ok";
         } else {
             var checkSumMessage = "Checksum is not valid",
             checkSumMsgClass = "alert alert-danger";
+            checkSumIconClass = "glyphicon glyphicon-remove";
         }
 
-        document.getElementById("output1").innerHTML = checkSumMessage;
         document.getElementById("output1").className = checkSumMsgClass;
+        document.getElementById("icon1").className = checkSumIconClass;
+        document.getElementById("text1").innerHTML = checkSumMessage;
 
         // check bank and branch number
         //var paymentsNZResult = function paymentsNZCheck(bankNum, brannchNum);
@@ -139,13 +169,16 @@
         if (paymentsNZResult == true) {
             var paymentsNZMessage = "Bank and branch is valid",
             paymentsNZMsgClass = "alert alert-success";
+            paymentsNZIconClass = "glyphicon glyphicon-ok";
         } else {
             var paymentsNZMessage = "Bank and branch does not exist",
             paymentsNZMsgClass = "alert alert-danger";
+            paymentsNZIconClass = "glyphicon glyphicon-remove";
         }
 
-        document.getElementById("output2").innerHTML = paymentsNZMessage;
-        document.getElementById("output2").className = paymentsNZMsgClass;
+        document.getElementById("output2").className = paymentsNZMsgClass
+        document.getElementById("icon2").className = paymentsNZIconClass
+        document.getElementById("text2").innerHTML = paymentsNZMessage;
 
     }
 
