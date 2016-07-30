@@ -68,7 +68,7 @@
             <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-block" type="button" onclick="check()">Check</button>
+            <button class="btn btn-block" type="button" onclick="validate()">Check</button>
         </div>
         <div class="col-md-1">
             <button class="btn btn-block" type="button" onclick="clearAccount()">Clear</button>
@@ -122,8 +122,7 @@
         document.getElementById("accountNumberForm").reset();
     }
 
-    function check() {
-        console.log("Doing the check function");
+    function validate() {
         var bankNum = document.getElementById("bank").value,
         branchNum = document.getElementById("branch").value,
         baseNum = document.getElementById("base").value,
@@ -143,18 +142,18 @@
 
         // put together into vector
         var accNumStr = bankStr + branchStr + baseStr + suffixStr;
-        var accNumArray = accNumStr.split("").map(Number);
 
         // calculate checksum
-        var checksumResult = checkSum(bankNum, baseNum, accNumArray);
+        var checksumResult = checkSum(bankNum, baseNum, accNumStr);
 
+        // output message
         if (checksumResult == true) {
             var checkSumMessage = "Checksum is valid",
-            checkSumMsgClass = "alert alert-success";
+            checkSumMsgClass = "alert alert-success",
             checkSumIconClass = "glyphicon glyphicon-ok";
         } else {
             var checkSumMessage = "Checksum is not valid",
-            checkSumMsgClass = "alert alert-danger";
+            checkSumMsgClass = "alert alert-danger",
             checkSumIconClass = "glyphicon glyphicon-remove";
         }
 
@@ -162,17 +161,22 @@
         document.getElementById("icon1").className = checkSumIconClass;
         document.getElementById("text1").innerHTML = checkSumMessage;
 
-        // check bank and branch number
-        //var paymentsNZResult = function paymentsNZCheck(bankNum, brannchNum);
-
         var paymentsNZResult = true
 
+        // get branch
+            //concatenate bank and branch
+
+        // lookup branch in list
+        // if it exists, get name
+        // otherwise, not valid
+
+        // output message
         if (paymentsNZResult == true) {
             var paymentsNZMessage = "Bank and branch is valid",
             paymentsNZMsgClass = "alert alert-success";
             paymentsNZIconClass = "glyphicon glyphicon-ok";
         } else {
-            var paymentsNZMessage = "Bank and branch does not exist",
+            var paymentsNZMessage = "Invalid bank and branch",
             paymentsNZMsgClass = "alert alert-danger";
             paymentsNZIconClass = "glyphicon glyphicon-remove";
         }
@@ -180,7 +184,6 @@
         document.getElementById("output2").className = paymentsNZMsgClass
         document.getElementById("icon2").className = paymentsNZIconClass
         document.getElementById("text2").innerHTML = paymentsNZMessage;
-
     }
 
     function padWithZeroes(n, width) {
@@ -188,7 +191,9 @@
       return n.length >= width ? n : new Array(width - n.length + 1).join("0") + n;
     }
 
-    function checkSum(bankNum, baseNum, accNumArray) {
+    function checkSum(bankNum, baseNum, accNumStr) {
+        var accNumArray = accNumStr.split("").map(Number);
+
         if (bankNum == 8) {
             // algorithm D
             var checkSumArray = [0,0,0,0,0,0,0,7,6,5,4,3,2,1,0,0,0,0],
@@ -223,7 +228,11 @@
             sum += accNumArray[i]*checkSumArray[i];
         }
 
-        if (sum % modulo == 0) {
+        var accNum = Number(accNumStr);
+
+        if  (accNum == 0) {
+            return false;
+        } else if (sum % modulo == 0) {
             return true;
         } else {
             return false;
