@@ -42,43 +42,49 @@
 
     <p align="center">Branch information from <a href="http://www.paymentsnz.co.nz/clearing-systems/bulk-electronic-clearing-system">Payments NZ</a>, last updated March 2017.</p>
 
-    <div class="row">
-        <div class="col-md-1 col-md-offset-2">
-            <h4>Bank</h4>
-        </div>
-        <div class="col-md-2">
-            <h4>Branch</h4>
-        </div>
-        <div class="col-md-2">
-            <h4>Base number</h4>
-        </div>
-        <div class="col-md-1">
-            <h4>Suffix</h4>
-        </div>
-    </div>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <td>
+                <h4>Bank</h4>
+            </td>
+            <td>
+                <h4>Branch</h4>
+            </td>
+            <td>
+                <h4>Base number</h4>
+            </td>
+            <td>
+                <h4>Suffix</h4>
+            </td>
+        </tr>
+    </thead>
 
-<form id="accountNumberForm">
-    <div class="row">
-        <div class="col-md-1 col-md-offset-2">
-            <input class="form-control" placeholder="Bank" type="text" maxlength=2 id="bank">
-        </div>
-        <div class="col-md-2">
-            <input class="form-control" placeholder="Branch" type="text" maxlength=4 id="branch">
-        </div>
-        <div class="col-md-2">
-            <input class="form-control" placeholder="Base number" type="text" maxlength=8 id="base">
-        </div>
-        <div class="col-md-1">
-            <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-block" type="button" onclick="validate()">Check</button>
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-block" type="button" onclick="clearAccount()">Clear</button>
-        </div>
-    </div>
-</form>
+    <tbody>
+    <form id="accountNumberForm">
+        <tr>
+            <td>
+                <input class="form-control" placeholder="Bank" type="text" maxlength=2 id="bank">
+            </td>
+            <td>
+                <input class="form-control" placeholder="Branch" type="text" maxlength=4 id="branch">
+            </td>
+            <td>
+                <input class="form-control" placeholder="Base number" type="text" maxlength=8 id="base">
+            </td>
+            <td>
+                <input class="form-control" placeholder="Suffix" type="text" maxlength=4 id="suffix">
+            </td>
+            <td>
+                <button class="btn btn-block" type="button" onclick="validate()">Check</button>
+            </td>
+            <td>
+                <button class="btn btn-block" type="button" onclick="clearAccount()">Clear</button>
+            </td>
+        </tr>
+    </form>
+    </tbody>
+</table>
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
