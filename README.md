@@ -6,4 +6,4 @@ Try it here: https://jayniehaka.github.io/nz-account-number-validation/
 
 You can paste in full account numbers if it is standard length or the parts are separated by spaces or hyphens.
 
-Last updated in June 2018.
+Last updated in July 2019.
